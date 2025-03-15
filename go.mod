@@ -1,4 +1,4 @@
-module areskiftet44.se/screenlock
+module github.com/arngrimur/randomfile
 
 go 1.24.0
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"areskiftet44.se/screenlock/internal/pkg/command"
+	"github.com/arngrimur/randomfile/internal/pkg/command"
 )
 
 func main() {
