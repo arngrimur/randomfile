@@ -20,10 +20,11 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.24.1'
-    - name: vendor
-      run: go mod vendor
     - name: tidy
       run: go mod tidy
+
+    - name: vendor
+      run: go mod vendor
 
     - name: Build
       run: go build -v ./...
