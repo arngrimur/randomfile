@@ -30,9 +30,11 @@ func GetImage(args []string) (string, error) {
 		}
 		files = append(files, name)
 	}
+	fmt.Println("# lines", len(files), files)
 	if len(files) == 0 {
 		return "", fmt.Errorf("No files in directory")
 	}
+	fmt.Println(("What?"))
 	absDirPath, err := filepath.Abs(dir.Name())
 	if err != nil {
 		return "", err
