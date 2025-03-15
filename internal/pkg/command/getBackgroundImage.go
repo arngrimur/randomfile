@@ -30,17 +30,20 @@ func GetImage(args []string) (string, error) {
 		}
 		files = append(files, name)
 	}
-	fmt.Println("# lines", len(files), files)
 	if len(files) == 0 {
 		return "", fmt.Errorf("No files in directory")
 	}
-	fmt.Println(("What?"))
 	absDirPath, err := filepath.Abs(dir.Name())
 	if err != nil {
 		return "", err
 	}
-	ind := rand.IntN(len(files) - 1)
-	return filepath.Join(absDirPath, names[ind]), nil
+	switch len(files) {
+	case 1:
+		return filepath.Join(absDirPath, names[0]), nil
+	default:
+		ind := rand.IntN(len(files) - 1)
+		return filepath.Join(absDirPath, names[ind]), nil
+	}
 }
 
 func getDirectory(args []string) (*os.File, error) {
