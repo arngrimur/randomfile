@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	image, err := command.GetImage(os.Args)
+	image, err := command.GetImage(os.Args[1:])
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
 		os.Exit(1)
