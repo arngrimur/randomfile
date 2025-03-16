@@ -27,7 +27,20 @@ jobs:
       run: go mod vendor
 
     - name: Build
-      run: go build -v ./...
+      run: go build -o bin/randomfile ./cmd/main.go
 
     - name: Test
       run: go test -v ./...
+
+
+    - uses: actions/checkout@v4
+
+    - name: Cache Go modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/go-build
+          /go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
