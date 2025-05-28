@@ -41,7 +41,7 @@ func GetImage(args []string) (string, error) {
 	case 1:
 		return filepath.Join(absDirPath, names[0]), nil
 	default:
-		ind := rand.IntN(len(files) - 1)
+		ind := rand.Int() % len(files)
 		return filepath.Join(absDirPath, names[ind]), nil
 	}
 }
