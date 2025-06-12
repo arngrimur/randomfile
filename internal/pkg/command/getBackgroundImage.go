@@ -2,6 +2,7 @@ package command
 
 import (
 	"fmt"
+	"log"
 	"math/rand/v2"
 	"os"
 	"path/filepath"
@@ -22,13 +23,13 @@ func GetImage(args []string) (string, error) {
 	for _, name := range names {
 		fileInfo, err := os.Stat(args[0] + "/" + name)
 		if err != nil {
+			log.Printf("Could not get file info for %s, %s", name, err)
 			break
 		}
-
-		if fileInfo.IsDir() {
-			break
+		if !fileInfo.IsDir() {
+			log.Printf("Appending file %s", name)
+			files = append(files, name)
 		}
-		files = append(files, name)
 	}
 	if len(files) == 0 {
 		return "", fmt.Errorf("No files in directory")
@@ -42,6 +43,7 @@ func GetImage(args []string) (string, error) {
 		return filepath.Join(absDirPath, names[0]), nil
 	default:
 		ind := rand.Int() % len(files)
+		log.Printf("Randomly selected %d, file %s from %d files", ind, names[ind], len(files))
 		return filepath.Join(absDirPath, names[ind]), nil
 	}
 }
