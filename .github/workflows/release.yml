@@ -1,0 +1,35 @@
+# .github/workflows/release.yml
+name: Build and release Go Project
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: "go.mod"
+
+      - name: Build project
+        run:  go build -o bin/randomfile ./cmd/main.go
+
+#      - name: Release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          files: |
+#            bin/ramdomfile
+      - name: Upload the binariy
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          file: ./bin/randomfile
+          file_glob: true
